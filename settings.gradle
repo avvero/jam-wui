@@ -1,1 +1,3 @@
 rootProject.name = 'jam-wui'
+
+includeBuild '../jam'
