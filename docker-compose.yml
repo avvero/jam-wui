@@ -1,0 +1,12 @@
+version: '2'
+services:
+  jam-wui:
+#    image: docker.io/library/jam-wui:0.0.1-SNAPSHOT
+    build: .
+    container_name: jam-wui
+    environment:
+      - app.jira.host=http://localhost:8081
+      - app.jira.username=admin
+      - app.jira.password=admin
+    ports:
+      - "8080:8080"
