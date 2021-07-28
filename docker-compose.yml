@@ -1,8 +1,7 @@
 version: '2'
 services:
   jam-wui:
-#    image: docker.io/library/jam-wui:0.0.1-SNAPSHOT
-    build: .
+    image: avvero/jam-wui:latest
     container_name: jam-wui
     environment:
       - app.jira.host=http://localhost:8081

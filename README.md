@@ -3,6 +3,12 @@
 Gradle composite approach is been using and jam project is required to be at `../jam`. 
 But it could be changed in `settings.gradle`.
 
+## Launching
+
+```properties
+docker run avvero/jam-wui:latest
+```
+
 ## Properties
 
 ```properties
