@@ -3,9 +3,14 @@
 <head>
     <title>Dependencies</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="viz.js"></script>
 </head>
 <body>
     <h1>Jira issue dependency graph</h1>
-    <p style="white-space: pre-line" th:text="${dependencyGraph}" />
+<!--    <p style="white-space: pre-line" th:text="${dependencyGraph}" />-->
+    <div id="graph" style="text-align: center;"></div>
+    <input type="hidden" id="graphSource" th:value="${dependencyGraph}"/>
+    <script src="dependencies.js"></script>
 </body>
 </html>
