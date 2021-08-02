@@ -34,7 +34,9 @@ public class RestController {
     }
 
     @GetMapping("/dependencies")
-    public String dependencies(@RequestParam String issueCode, Model model) {
+    public String dependencies(@RequestParam String issueCode,
+                               @RequestParam(required = false) String from,
+                               Model model) {
         Cache cache = cacheManager.getCache("dependencies");
         String issueDependencies = cache.get(issueCode, String.class);
         if (issueDependencies == null) {
@@ -49,7 +51,7 @@ public class RestController {
                     }
                 }
             }
-            issueDependencies = GraphvizWriter.toString(issue);
+            issueDependencies = GraphvizWriter.toString(issue, from);
             cache.put(issueCode, issueDependencies);
         }
         model.addAttribute("dependencyGraph", issueDependencies);
