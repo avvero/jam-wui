@@ -5,11 +5,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="jquery-3.6.0.min.js"></script>
     <script src="viz.js"></script>
+    <script src="http://viz-js.com/bower_components/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
+    <style>
+        #graph {
+            flex: 1 1 auto;
+            -webkit-flex: 1 1 auto;
+            position: relative;
+            overflow: auto;
+            text-align: center;
+        }
+        #graph svg {
+            /*position: absolute;*/
+            /*top: 0;*/
+            /*left: 0;*/
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
     <h1>Jira issue dependency graph</h1>
 <!--    <p style="white-space: pre-line" th:text="${dependencyGraph}" />-->
-    <div id="graph" style="text-align: center;"></div>
+    <div id="graph"></div>
     <input type="hidden" id="graphSource" th:value="${dependencyGraph}"/>
     <script src="dependencies.js"></script>
 </body>

@@ -21,6 +21,11 @@ public class RestController {
     private final JamService jamService;
     private final CacheManager cacheManager;
 
+    @GetMapping("/")
+    public String index(Model model) {
+        return "index";
+    }
+
     @GetMapping("/checkout")
     public String checkout(@RequestParam String issueCode, Model model) {
         String schema = jamService.checkout(issueCode);
@@ -29,9 +34,7 @@ public class RestController {
     }
 
     @GetMapping("/dependencies")
-    public String dependencies(@RequestParam String issueCode,
-                               @RequestParam(required = false) String render,
-                               Model model) {
+    public String dependencies(@RequestParam String issueCode, Model model) {
         Cache cache = cacheManager.getCache("dependencies");
         String issueDependencies = cache.get(issueCode, String.class);
         if (issueDependencies == null) {
@@ -50,10 +53,6 @@ public class RestController {
             cache.put(issueCode, issueDependencies);
         }
         model.addAttribute("dependencyGraph", issueDependencies);
-        if ("d3".equals(render)) {
-            return "dependencies-d3";
-        } else {
-            return "dependencies";
-        }
+        return "dependencies";
     }
 }
