@@ -1,9 +1,9 @@
 // Generate the Visualization of the Graph into "svg".
 var data = $("#graphSource").val();
 var svg = Viz(data, "svg");
-$("#graph").html("<hr>"+svg);
+$("#output").html(svg);
 
-var svgPanZoom = svgPanZoom('#graph svg', {
+var svgPanZoom = svgPanZoom('#output svg', {
     viewportSelector: '.svg-pan-zoom_viewport',
     panEnabled: true,
     controlIconsEnabled: true,
