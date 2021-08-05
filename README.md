@@ -5,6 +5,14 @@
 Gradle composite approach is been using and jam project is required to be at `../jam`. 
 But it could be changed in `settings.gradle`.
 
+## Features
+
+Depth: 
+- **Epic** -> Issue of any kind in Epic 
+- Issue with type **Initiative** -> Issue of any kind where **Initiative** **is parent task of**
+
+Link of any kind between issues.
+
 ## Launching
 
 ```properties
