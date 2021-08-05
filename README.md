@@ -13,6 +13,8 @@ Depth:
 
 Link of any kind between issues.
 
+Issues on graph are clickable.
+
 ## Launching
 
 ```properties
