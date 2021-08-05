@@ -3,250 +3,27 @@
 <head>
     <title>Jam: Dependencies</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <link rel="stylesheet" href="toast.css" />
+    <link rel="stylesheet" href="fontawesome.all.min.css" />
+    <link rel="stylesheet" href="dependencies.css" />
+
     <script src="jquery-3.6.0.min.js"></script>
-    <script src="jquery-ui.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
     <script src="viz.js"></script>
     <script src="svg-pan-zoom.min.js"></script>
-
-    <link rel="stylesheet" href="jquery-ui.min.css">
-    <link rel="stylesheet" href="jquery-ui.theme.min.css">
-    <link rel="stylesheet" href="jquery-ui.structure.min.css">
-    <link rel="stylesheet" href="fontawesome.all.min.css" />
-    <style>
-        .aggressive-wrap {
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-
-            -ms-word-break: break-all;
-            word-break: break-all;
-            word-break: break-word;
-
-            -ms-hyphens: auto;
-            -moz-hyphens: auto;
-            -webkit-hyphens: auto;
-            hyphens: auto;
-        }
-
-        body {
-            font-family: 'Open Sans';
-        }
-
-        .blocker {
-            z-index: 100;
-        }
-
-        #app {
-            display: flex;
-            display: -webkit-flex;
-            flex-direction: column;
-            -webkit-flex-direction: column;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        canvas {
-            font-family: Handlee;
-        }
-
-        #header {
-            flex: 0 0 auto;
-            -webkit-flex: 0 0 auto;
-            line-height: 1.3;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #user {
-            display: flex;
-            align-items: center;
-        }
-
-        #panes {
-            display: flex;
-            display: -webkit-flex;
-            flex: 1 1 auto;
-            -webkit-flex: 1 1 auto;
-        }
-
-        #graph {
-            display: flex;
-            display: -webkit-flex;
-            flex-direction: column;
-            -webkit-flex-direction: column;
-        }
-
-        #options {
-            flex: 0 0 auto;
-            justify-content: space-between;
-            align-items: center;
-            -webkit-flex: 0 0 auto;
-        }
-
-        #output {
-            flex: 1 1 auto;
-            -webkit-flex: 1 1 auto;
-            position: relative;
-            overflow: auto;
-        }
-
-        #editor {
-            border-right: 1px solid #ccc;
-        }
-
-        #header {
-            background: #fafbfc;
-            border-bottom: 1px solid #e1e4e8;
-            padding: 8px;
-        }
-
-        #header .logo {
-            font-family: 'Tinos';
-            font-size: 32px;
-            text-decoration: none;
-            font-weight: 600;
-            color: black;
-        }
-
-        #header .description {
-            margin-left: 16px;
-        }
-
-        .sketchy #header .logo {
-            font-family: 'Londrina Outline';
-        }
-
-        #options {
-            background: #fff;
-            border-bottom: 0;
-            padding: 8px;
-            display: flex;
-            color: #24292e;
-        }
-
-        #options button, #options i {
-            color: #24292e;
-        }
-
-        #options button {
-            background-color: #eff3f6;
-            background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-            padding: 6px 12px;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 20px;
-            white-space: nowrap;
-            cursor: pointer;
-            background-repeat: repeat-x;
-            background-position: -1px -1px;
-            background-size: 110% 110%;
-            border: 1px solid rgba(27,31,35,.2);
-            border-radius: .25em;
-            display: flex;
-        }
-
-        #options button:hover {
-            background-color: #e6ebf1;
-            background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-            background-position: -.5em;
-            border-color: rgba(27,31,35,.35);
-        }
-
-        #options button:active {
-            background-color: #e9ecef;
-            background-image: none;
-            border-color: rgba(27,31,35,.35);
-            box-shadow: inset 0 0.15em 0.3em rgba(27,31,35,.15);
-        }
-
-        #options label {
-            margin-right: 8px;
-        }
-
-        #options #raw.disabled {
-            opacity: 0.5;
-        }
-
-        #output svg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        #output #text {
-            font-size: 12px;
-            font-family: monaco, courier, monospace;
-            white-space: pre;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-        }
-
-        #output img {
-            display: block;
-            margin: 0 auto;
-        }
-
-        #output.working svg, #output.error svg,
-        #output.working #text, #output.error #text,
-        #output.working img, #output.error img {
-            opacity: 0.4;
-        }
-
-        #output.error #error {
-            display: inherit;
-        }
-
-        #output #error {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            margin-right: 20px;
-            background: red;
-            color: white;
-            z-index: 1;
-        }
-
-        .gutter {
-            background-color: #eee;
-            background-repeat: no-repeat;
-            background-position: 50%;
-        }
-
-        .gutter.gutter-horizontal {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
-            cursor: ew-resize;
-        }
-
-        .split {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-        .split.split-horizontal, .gutter.gutter-horizontal {
-            height: 100%;
-            float: left;
-        }
-
-        #graph {
-            flex-grow: 1;
-        }
-    </style>
+    <script src="toast.js"></script>
 </head>
 <body>
     <div id="app">
+        <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
         <div id="header">
             <span class='left'>
               <a class='logo' href='/'>Jira issue dependency graph</a>
@@ -263,7 +40,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal HTML embedded directly into document -->
+    <!-- Meta -->
     <div id="share-modal" class="modal"></div>
     <input type="hidden" id="graphSource" th:value="${dependencyGraph}"/>
     <script src="dependencies.js"></script>
