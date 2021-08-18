@@ -2,11 +2,11 @@ package pw.avvero.jamwui;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pw.avvero.jam.JamService;
@@ -53,7 +53,15 @@ public class RestController {
         Cache cache = cacheManager.getCache("dependencies");
         String issueDependencies = cache.get(issueCode, String.class);
         if (issueDependencies == null) {
-            Issue issue = jamService.getIssueWithChildren(issueCode);
+            Issue issue;
+            try {
+                issue = jamService.getIssueWithChildren(issueCode);
+            } catch (Throwable t) {
+                log.error(t.getLocalizedMessage(), t);
+                model.addAttribute("message", t.getCause().getLocalizedMessage());
+                model.addAttribute("stackTrace", ExceptionUtils.getStackTrace(t));
+                return "error";
+            }
             if (issue == null) {
                 model.addAttribute("error", "Can't find issue by code: " + issueCode);
                 model.addAttribute("history", history);

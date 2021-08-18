@@ -19,8 +19,9 @@ public class JamConfig {
     @Bean
     IssueDataProvider issueDataProvider(@Value("${app.jira.host}") String host,
                                         @Value("${app.jira.username}") String username,
-                                        @Value("${app.jira.password}") String password) {
-        return new JiraApiDataProvider(new HttpApiClient(host, username, password));
+                                        @Value("${app.jira.password}") String password,
+                                        @Value("${app.jira.connect-timeout}") int connectTimeout) {
+        return new JiraApiDataProvider(new HttpApiClient(host, username, password, connectTimeout));
     }
 
 }
